@@ -16,6 +16,8 @@
 package com.example.forage.data
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.forage.model.Forageable
 import kotlinx.coroutines.flow.Flow
@@ -36,7 +38,8 @@ interface ForageableDao {
 
     // TODO: implement a method to insert a Forageable into the database
     //  (use OnConflictStrategy.REPLACE)
-
+    @Insert
+    fun insert(forageable: Forageable)
 
     // TODO: implement a method to update a Forageable that is already in the database
 
