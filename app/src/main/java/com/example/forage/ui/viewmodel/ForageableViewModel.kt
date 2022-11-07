@@ -97,7 +97,7 @@ class ForageableViewModel(
 
 // DONE: create a view model factory that takes a ForageableDao as a property and
 //  creates a ForageableViewModel
- class Factory(private val forageableDao: ForageableDao): ViewModelProvider.Factory {
+ class ForageableViewModelFactory(private val forageableDao: ForageableDao): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")
         if(modelClass.isAssignableFrom(ForageableViewModel::class.java)){
