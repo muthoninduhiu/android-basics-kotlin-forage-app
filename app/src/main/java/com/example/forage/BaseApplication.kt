@@ -27,6 +27,6 @@ class BaseApplication : Application() {
 
     // DONE: provide a ForageDatabase value by lazy here
     val database by lazy {
-        ForageDatabase
+        ForageDatabase.getDatabase(this)
     }
 }
