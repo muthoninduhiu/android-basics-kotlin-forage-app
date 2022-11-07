@@ -29,20 +29,30 @@ import com.example.forage.model.Forageable
 @Database(entities = [Forageable::class],version = 1, exportSchema = false)
 abstract class ForageDatabase : RoomDatabase()
 {
-    abstract fun getDao(): ForageableDao
+    abstract fun forageableDao(): ForageableDao
 
     companion object{
-        private lateinit var  INSTANCE : ForageDatabase
-        fun getDatabase(context: Context):ForageDatabase{
-            synchronized(ForageDatabase::class.java){
-                if (!::INSTANCE.isInitialized)
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        ForageDatabase::class.java,"forageable"
-                    ).build()
+        @Volatile
+        private var INSTANCE: ForageDatabase? = null
+
+        fun getDatabase(context: Context): ForageDatabase? {
+            return INSTANCE ?: synchronized(this) {
+                // If null create new database instance
+                val instance = Room.databaseBuilder(
+                    context,
+                    ForageDatabase::class.java,
+                    "app_database"
+                ).fallbackToDestructiveMigration()
+                    .build()
+
+                INSTANCE = instance
+
+                instance
             }
-            return INSTANCE
+
         }
+
+
     }
 
 }
