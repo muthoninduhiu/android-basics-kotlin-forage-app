@@ -38,7 +38,7 @@ class ForageableViewModel(
 
     // DONE : create method that takes id: Long as a parameter and retrieve a Forageable from the
     //  database by id via the DAO.
-    fun sth(id: Long): LiveData<Forageable> {
+    fun getForageables(id: Long): LiveData<Forageable> {
         return forageableDao.getForageable(id).asLiveData()
     }
 
@@ -55,7 +55,10 @@ class ForageableViewModel(
             notes = notes
         )
 
-    // TODO: launch a coroutine and call the DAO method to add a Forageable to the database within it
+    // DONE: launch a coroutine and call the DAO method to add a Forageable to the database within it
+        viewModelScope.launch {
+            forageableDao.insert(forageable)
+        }
 
     }
 
