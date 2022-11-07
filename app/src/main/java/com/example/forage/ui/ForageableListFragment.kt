@@ -71,8 +71,10 @@ class ForageableListFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        // TODO: observe the list of forageables from the view model and submit it the adapter
-      
+        // DONE: observe the list of forageables from the view model and submit it the adapter
+        viewModel.forageables.observe(viewLifecycleOwner, Observer<List<Forageable>>(){
+            adapter.submitList(it)
+        })
 
         binding.apply {
             recyclerView.adapter = adapter
