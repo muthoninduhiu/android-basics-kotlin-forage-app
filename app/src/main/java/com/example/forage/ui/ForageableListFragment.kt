@@ -38,12 +38,12 @@ import com.example.forage.ui.viewmodel.ForageableViewModelFactory
  */
 class ForageableListFragment : Fragment() {
 
-    // TODO: Refactor the creation of the view model to take an instance of
+    // DONE: Refactor the creation of the view model to take an instance of
     //  ForageableViewModelFactory. The factory should take an instance of the Database retrieved
     //  from BaseApplication
     private val viewModel: ForageableViewModel by activityViewModels(){
         ForageableViewModelFactory(
-            (activity?.application as BaseApplication).database.foragableDao()
+            (activity?.application as BaseApplication).database!!.forageableDao()
         )
     }
 
@@ -72,9 +72,11 @@ class ForageableListFragment : Fragment() {
         }
 
         // DONE: observe the list of forageables from the view model and submit it the adapter
-        viewModel.forageables.observe(viewLifecycleOwner, Observer<List<Forageable>>(){
-            adapter.submitList(it)
-        })
+        viewModel.forageableList.observe(this.viewLifecycleOwner){
+            items -> items.let {
+                adapter.submitList(it)
+        }
+        }
 
         binding.apply {
             recyclerView.adapter = adapter
