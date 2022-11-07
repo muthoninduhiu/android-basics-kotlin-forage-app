@@ -16,6 +16,7 @@
 package com.example.forage
 
 import android.app.Application
+import androidx.lifecycle.ViewModelProvider
 import com.example.forage.data.ForageDatabase
 
 /**
@@ -25,4 +26,7 @@ import com.example.forage.data.ForageDatabase
 class BaseApplication : Application() {
 
     // TODO: provide a ForageDatabase value by lazy here
+    private val forageDatabase by lazy {
+        ForageDatabase
+    }
 }
