@@ -15,7 +15,9 @@
  */
 package com.example.forage.data
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.forage.model.Forageable
 
@@ -29,6 +31,18 @@ abstract class ForageDatabase : RoomDatabase()
 {
     abstract fun getDao(): ForageableDao
 
-   
+    companion object{
+        private lateinit var  INSTANCE : ForageDatabase
+        fun getDatabase(context: Context):ForageDatabase{
+            synchronized(ForageDatabase::class.java){
+                if (!::INSTANCE.isInitialized)
+                    INSTANCE = Room.databaseBuilder(
+                        context.applicationContext,
+                        ForageDatabase::class.java,"forageable"
+                    ).build()
+            }
+            return INSTANCE
+        }
+    }
 
 }
