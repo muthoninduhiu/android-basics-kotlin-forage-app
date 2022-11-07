@@ -27,6 +27,8 @@ import com.example.forage.model.Forageable
 @Database(entities = [Forageable::class],version = 1, exportSchema = false)
 abstract class ForageDatabase : RoomDatabase()
 {
-  
+    abstract fun getDao(): ForageableDao
+
+   
 
 }
