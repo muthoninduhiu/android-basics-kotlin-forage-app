@@ -56,7 +56,7 @@ class ForageableViewModel(
         )
 
     // DONE: launch a coroutine and call the DAO method to add a Forageable to the database within it
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO){
             forageableDao.insert(forageable)
         }
 
@@ -77,7 +77,9 @@ class ForageableViewModel(
             notes = notes
         )
         viewModelScope.launch(Dispatchers.IO) {
-            // TODO: call the DAO method to update a forageable to the database here
+            // DONE: call the DAO method to update a forageable to the database here
+            forageableDao.update(forageable)
+
         }
     }
 
